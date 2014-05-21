@@ -1,0 +1,37 @@
+### Imports
+import(stats)
+import(nlstools)
+
+### Exports
+# Models
+# growth models
+export(baranyi)
+export(baranyi_without_lag)
+export(baranyi_without_Nmax)
+export(buchanan)
+export(buchanan_without_Nmax)
+export(buchanan_without_lag)
+export(gompertzm)
+
+# competition models
+export(jameson_buchanan)
+export(jameson_baranyi)
+export(jameson_without_lag)
+
+# secondary models
+export(cpm_T)
+export(cpm_pH_4p)
+export(cpm_pH_3p)
+export(cpm_aw_3p)
+export(cpm_aw_2p)
+export(cpm_T_pH_aw)
+
+# survival models
+export(albert)
+export(geeraerd)
+export(geeraerd_without_Nres)
+export(geeraerd_without_Sl)
+export(mafart)
+export(trilinear)
+export(bilinear_without_Nres)
+export(bilinear_without_Sl)
