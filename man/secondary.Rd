@@ -6,29 +6,19 @@
 \alias{cpm_aw_3p}
 \alias{cpm_aw_2p}
 \alias{cpm_T_pH_aw}
-%- Also NEED an '\alias' for EACH other topic documented here.
-
-\title{ Secondary growth models }
-
-\description{
-  Formulas of secondary growth models commonly used in predictive microbiology
-}
+\title{Secondary growth models}
+\description{Formulas of secondary growth models commonly used in predictive microbiology}
 
 \usage{
-cpm_T
-cpm_pH_4p
-cpm_pH_3p
-cpm_aw_3p
-cpm_aw_2p
-cpm_T_pH_aw
+  cpm_T
+  cpm_pH_4p
+  cpm_pH_3p
+  cpm_aw_3p
+  cpm_aw_2p
+  cpm_T_pH_aw
 }
 
-%- maybe also 'usage' for other objects documented here.
-
-%\arguments{}
-
 \details{
-
 	All the models describe the evolution of the square root of the maximum specific growth rate (sqrtmumax) as a function 
 	of one or more environmental factors among temperature (T), pH (pH) and water activity (aw).
 	Each model must be fitted to a data frame including at least two columns, the last one named "sqrtmumax" 
@@ -40,26 +30,18 @@ cpm_T_pH_aw
 	\code{cpm_aw_3p} is the cardinal aw model (Rosso and Robinson, 2001) with three parameters (awmin, awopt, muopt)\cr\cr
 	\code{cpm_aw_2p} is a simplified cardinal aw model (Rosso and Robinson, 2001) with two parameters (awmin, muopt) obtained by fixing awopt to 1 in the \code{cpm_aw_3p} model\cr\cr
 	\code{cpm_T_pH_aw} is the cardinal model based on the gamma concept (Pinon et al., 2004) with 9 parameters (Tmin, Topt, Tmax, pHmin, pHopt, pHmax, awmin, awopt, muopt)\cr\cr
-
 }
 
-\value{ 
-	A formula 
-}
+\value{A formula}
 
 \references{ 
-Pinon A, Zwietering M, Perrier L, Membr\'e J, Leporq B, Mettler E, Thuault D, Coroller L, Stahl V, Vialette M (2004) Development and validation of experimental protocols for use of cardinal models for prediction of microorganism growth in food products. \emph{Applied Environmental Microbiology}, \bold{70}, 1081-1087.\cr\cr
-Rosso L, Robinson TP (2001) A cardinal model to describe the effect of water activity on the growth of moulds. \emph{International Journal of Food Microbiology}, \bold{63}, 265-273.\cr\cr
-Rosso L, Lobry JR, Bajard S, Flandrois JP (1995) Convenient model to describe the combined effects of temperature and pH on microbial growth. \emph{Applied Environmental Microbiology}, \bold{61}, 610-616.\cr\cr
-Rosso L, Lobry JR, Flandrois JP (1993) An unexpected correlation between cardinal temperatures of microbial growth highlighted by a new model. \emph{Journal of Theoretical Biology} \bold{162}, 447-463.
+  Pinon A, Zwietering M, Perrier L, Membr\'e J, Leporq B, Mettler E, Thuault D, Coroller L, Stahl V, Vialette M (2004) Development and validation of experimental protocols for use of cardinal models for prediction of microorganism growth in food   products. \emph{Applied Environmental Microbiology}, \bold{70}, 1081-1087.\cr\cr
+  Rosso L, Robinson TP (2001) A cardinal model to describe the effect of water activity on the growth of moulds. \emph{International Journal of Food Microbiology}, \bold{63}, 265-273.\cr\cr
+  Rosso L, Lobry JR, Bajard S, Flandrois JP (1995) Convenient model to describe the combined effects of temperature and pH on microbial growth. \emph{Applied Environmental Microbiology}, \bold{61}, 610-616.\cr\cr
+  Rosso L, Lobry JR, Flandrois JP (1993) An unexpected correlation between cardinal temperatures of microbial growth highlighted by a new model. \emph{Journal of Theoretical Biology} \bold{162}, 447-463.
 }
 
-\author{ 
-Florent Baty \email{florent.baty@gmail.com}\cr
-Marie-Laure Delignette-Muller \email{ml.delignette@vetagro-sup.fr}
-}
-
-%\note{  }
+\author{Florent Baty, Marie-Laure Delignette-Muller}
 
 \examples{
 
@@ -120,4 +102,4 @@ overview(nls6)
 par(def.par)
 }
 
-\keyword{ models }% at least one, from doc/KEYWORDS
+\keyword{models}

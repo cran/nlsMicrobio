@@ -7,27 +7,20 @@
 \alias{buchanan_without_Nmax}
 \alias{buchanan_without_lag}
 \alias{gompertzm}
-%- Also NEED an '\alias' for EACH other topic documented here.
-\title{ Bacterial growth models }
-\description{
-  Formulas of primary growth models commonly used in predictive microbiology
-  }
+\title{Bacterial growth models}
+\description{Formulas of primary growth models commonly used in predictive microbiology}
+  
 \usage{
-baranyi
-baranyi_without_Nmax
-baranyi_without_lag
-buchanan
-buchanan_without_Nmax
-buchanan_without_lag
-gompertzm
+  baranyi
+  baranyi_without_Nmax
+  baranyi_without_lag
+  buchanan
+  buchanan_without_Nmax
+  buchanan_without_lag
+  gompertzm
 }
 
-%- maybe also 'usage' for other objects documented here.
-
-%\arguments{ }
-
 \details{
-
 	These models describe the evolution of the decimal logarithm of the microbial count (LOG10N) as a function
 	of the time (t).
 	
@@ -45,21 +38,15 @@ gompertzm
 }
 
 \references{ 
-Baranyi J and Roberts, TA (1994) A dynamic approach to predicting bacterial growth in food, \emph{International Journal of Food Microbiology}, \bold{23}, 277-294.\cr\cr
-Buchanan RL, Whiting RC, Damert WC (1997) When is simple good enough: a comparison of the Gompertz, Baranyi, and three-phase linear models for fitting bacterial growth curves. \emph{Food Microbiology}, \bold{14}, 313-326.\cr\cr
-Gibson AM, Bratchell N, Roberts TA (1988) Predicting microbial growth: growth responses of salmonellae in a laboratory medium as affected by pH, sodium chloride and storage temperature. \emph{International Journal of Food Microbiology}, \bold{6}, 155-178.\cr\cr
-Zwietering MH, Jongenburger I, Rombouts FM, Van't Riet K (1990) Modeling of the bacterial growth curve. \emph{Applied and Environmental Microbiology}, \bold{56}, 1875-1881.
+  Baranyi J and Roberts, TA (1994) A dynamic approach to predicting bacterial growth in food, \emph{International Journal of Food Microbiology}, \bold{23}, 277-294.\cr\cr
+  Buchanan RL, Whiting RC, Damert WC (1997) When is simple good enough: a comparison of the Gompertz, Baranyi, and three-phase linear models for fitting bacterial growth curves. \emph{Food Microbiology}, \bold{14}, 313-326.\cr\cr
+  Gibson AM, Bratchell N, Roberts TA (1988) Predicting microbial growth: growth responses of salmonellae in a laboratory medium as affected by pH, sodium chloride and storage temperature. \emph{International Journal of Food Microbiology}, \bold{6}, 155  -178.\cr\cr
+  Zwietering MH, Jongenburger I, Rombouts FM, Van't Riet K (1990) Modeling of the bacterial growth curve. \emph{Applied and Environmental Microbiology}, \bold{56}, 1875-1881.
 }
 
-\author{ 
-Florent Baty \email{florent.baty@gmail.com}\cr
-Marie-Laure Delignette-Muller \email{ml.delignette@vetagro-sup.fr}
-}
-
-%\note{  }
+\author{Florent Baty, Marie-Laure Delignette-Muller}
 
 \examples{
-
 # Example 1
 
 data(growthcurve1)
@@ -101,6 +88,6 @@ par(mfrow = c(2,1))
 plotfit(nls6, smooth = TRUE)
 plotfit(nls7, smooth = TRUE)
 par(def.par)
- }
+}
 
-\keyword{ models }% at least one, from doc/KEYWORDS
+\keyword{models}

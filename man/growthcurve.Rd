@@ -4,29 +4,21 @@
 \alias{growthcurve3}
 \alias{growthcurve4}
 \docType{data}
-%- Also NEED an '\alias' for EACH other topic documented here.
-
-\title{ Bacterial kinetics data sets }
-
-\description{
-Bacterial kinetics data sets
-}
+\title{Bacterial kinetics data sets}
+\description{Bacterial kinetics data sets}
 
 \usage{
-data(growthcurve1)
-data(growthcurve2)
-data(growthcurve3)
-data(growthcurve4)
+  data(growthcurve1)
+  data(growthcurve2)
+  data(growthcurve3)
+  data(growthcurve4)
 }
-%- maybe also 'usage' for other objects documented here.
 
 \format{ 
-Data frames with 2 columns (t: time, LOG10N: decimal logarithm of bacterial density)
+  Data frames with 2 columns (t: time, LOG10N: decimal logarithm of bacterial density)
 }
 
-\source{ Data obtained by Florent Baty \email{florent.baty@gmail.com} and Marie-Laure Delignette-Muller \email{ml.delignette@vetagro-sup.fr}}
-
-%\references{  }
+\source{Data obtained by Florent Baty and Marie-Laure Delignette-Muller}
 
 \examples{
 data(growthcurve1)
@@ -42,4 +34,4 @@ plot(growthcurve4)
 par(def.par)
 }
 
-\keyword{ datasets }% at least one, from doc/KEYWORDS
+\keyword{datasets}

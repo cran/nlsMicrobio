@@ -1,16 +1,22 @@
 Package: nlsMicrobio
-Version: 0.0-1
-Date: Wed May 21 13:50:39 CEST 2014
-Title: Nonlinear regression in predictive microbiology
-Author: Florent Baty <florent.baty@gmail.com> and Marie-Laure
-        Delignette-Muller <marielaure.delignettemuller@vetagro-sup.fr>
-Maintainer: Florent Baty <florent.baty@gmail.com>
+Version: 0.0-3
+Title: Nonlinear Regression in Predictive Microbiology
+Authors@R: c(person("Florent", "Baty", role = "aut", email = "florent.baty@gmail.com"),
+             person("Marie-Laure", "Delignette-Muller", role = "aut", email = "marielaure.delignettemuller@vetagro-sup.fr"),
+             person("Aurelie", "Siberchicot", role = c("aut", "cre"), email = "aurelie.siberchicot@univ-lyon1.fr"))
 Depends: stats, nlstools
-Description: Data sets and nonlinear regression models dedicated to predictive microbiology
-License: GPL (>= 2)
+Suggests: knitr
+Description: Data sets and nonlinear regression models dedicated to predictive microbiology.
+License: GPL-3
 LazyLoad: yes
 LazyData: yes
-Repository: CRAN
-Packaged: 2014-06-25 09:09:54 UTC; florent
 NeedsCompilation: no
-Date/Publication: 2014-06-25 14:40:55
+VignetteBuilder: knitr
+BuildVignettes: true
+Packaged: 2021-09-17 10:51:41 UTC; siberchicot
+Author: Florent Baty [aut],
+  Marie-Laure Delignette-Muller [aut],
+  Aurelie Siberchicot [aut, cre]
+Maintainer: Aurelie Siberchicot <aurelie.siberchicot@univ-lyon1.fr>
+Repository: CRAN
+Date/Publication: 2021-09-17 11:30:02 UTC

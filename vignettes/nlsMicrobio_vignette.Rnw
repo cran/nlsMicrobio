@@ -1,28 +1,30 @@
-% \VignetteIndexEntry{Use of the package nlstools}
-% \VignetteDepends{nlstools, stats}
-
 \documentclass[a4paper]{article}
 %\usepackage[a4paper,textwidth=18cm,textheight=27cm]{geometry}
+% sweave commands for vignette
+%\VignetteIndexEntry{Use of the package nlstools}
+%\VignettePackage{nlsMicrobio}
+%\VignetteKeyword{nlstools, nlsMicrobio, stats}
 
-\title{Example of usage of package \texttt{nlstools} using nonlinear regression from predictive microbiology}
+
+\title{Use of the package \texttt{nlstools} to help the fit and assess the quality of fit of a gaussian nonlinear model}
 \author{Marie Laure Delignette-Muller and Florent Baty}
+\date{December 2012}
 
 \begin{document}
-%\SweaveOpts{concordance=TRUE}
-%\SweaveOpts{concordance=TRUE}
+\SweaveOpts{concordance=TRUE}
 
 \maketitle
 
-    The package \texttt{nlstools} provides several tools that help to fit of a gaussian nonlinear model \cite{Bates} using the fonction \texttt{nls} and to assess its quality of fit.
-    
- \[  
-    y = f(\theta,x)+ \varepsilon, \hspace{0.5cm} \varepsilon \sim \mathcal{N}(0,\sigma)
- \]     
+The package \texttt{nlstools} provides several tools that help to fit of a gaussian nonlinear model \cite{Bates} using the fonction \texttt{nls} and to assess its quality of fit.
 
-    The aim of this document is to provide examples showing how to use these tools that help to fit a model to data using the fonction \texttt{nls}, to check the validity of the assumptions of the model, to assess its quality of fit, to evaluate the precision of parameters estimates by use of confidence intervals or regions, ... For details, see the documentation of each function, using the R help command (e.g. \texttt{?nlsResiduals}). Do not forget to load the library using the function \texttt{library} before testing the following examples.
+\[  
+y = f(\theta,x)+ \varepsilon, \hspace{0.5cm} \varepsilon \sim \mathcal{N}(0,\sigma)
+\]     
 
-<<echo=T, results=hide>>=
-library(nlsMicrobio)
+The aim of this document is to provide examples showing how to use these tools that help to fit a model to data using the fonction \texttt{nls}, to check the validity of the assumptions of the model, to assess its quality of fit, to evaluate the precision of parameters estimates by use of confidence intervals or regions, ... For details, see the documentation of each function, using the R help command (e.g. \texttt{?nlsResiduals}). Do not forget to load the library using the function \texttt{library} before testing the following examples.
+
+<<echo=T, results=hide, keep.source=FALSE>>=
+library(nlstools)
 @
 
 \tableofcontents
@@ -32,77 +34,80 @@ library(nlsMicrobio)
 \section{Help to fit a model}
 \subsection{Help to define starting values for parameters}
 
-    To fit a nonlinear model, it is necessary to specify starting estimates for parameters. The function \texttt{preview} may be used to facilitate the choice of these values. It provides a superimposed plot of observed (black circles) and predicted (red crosses) values of the dependent variable versus one of the independent variables with the model evaluated at specified values of the parameters. The residual sum-of-squares (RSS) give an indication of the distance between observed and predicted values (the lower, the better). It is then easy to use it repeatedly to reach a good approximation of the starting estimates as in the following example. This example uses a dataset and a model available in the package \texttt{nlstools}.
+To fit a nonlinear model, it is necessary to specify starting estimates for parameters. The function \texttt{preview} may be used to facilitate the choice of these values. It provides a superimposed plot of observed (black circles) and predicted (red crosses) values of the dependent variable versus one of the independent variables with the model evaluated at specified values of the parameters. The residual sum-of-squares (RSS) give an indication of the distance between observed and predicted values (the lower, the better). It is then easy to use it repeatedly to reach a good approximation of the starting estimates as in the following example. This example uses a dataset and a model available in the package \texttt{nlstools}.
+
 
 \begin{itemize}
 
 \item First iteration with arbitrary values of parameters
 
-<<fig=TRUE>>=
+<<fig=TRUE, keep.source=FALSE>>=
+library(nlsMicrobio)
 data(survivalcurve2)
 preview(formula=mafart, data=survivalcurve2,
-start=list(p = 1, delta = 1, LOG10N0 = 7))
+        start=list(p = 1, delta = 1, LOG10N0 = 7))
 @
 
 \item Second iteration with adjusted values of parameters
 
-<<fig=TRUE>>=
+<<fig=TRUE, keep.source=FALSE>>=
 preview(formula=mafart, data=survivalcurve2,
-start=list(p = 1, delta = 10, LOG10N0 = 7))
+        start=list(p = 1, delta = 10, LOG10N0 = 7))
 @
 
 \item Last iteration with reasonable approximate values of parameters
 
-<<fig=TRUE>>=
+<<fig=TRUE,keep.source=FALSE>>=
 preview(formula=mafart, data=survivalcurve2,
-start=list(p = 2, delta = 10, LOG10N0 = 7.5))
+        start=list(p = 2, delta = 10, LOG10N0 = 7.5))
 @
 
 \end{itemize}
 
 \subsection{Fit and plot of fit}
 
-    When reasonable starting estimates are available for parameters, the model may be fitted using the function \texttt{nls}, and the fitted model may be plotted together with the observed data points using the function \texttt{plotfit}. Its argument \texttt{smooth} enables to draw a smooth line for the fitted model.
+When reasonable starting estimates are available for parameters, the model may be fitted using the function \texttt{nls}, and the fitted model may be plotted together with the observed data points using the function \texttt{plotfit}. Its argument \texttt{smooth} enables to draw a smooth line for the fitted model.
 
-<<fig=TRUE>>=
+<<fig=TRUE, keep.source=FALSE>>=
 nlsmaf <- nls(mafart, survivalcurve2, list(p = 2, delta = 10, LOG10N0 = 7.5))
 plotfit(nlsmaf,smooth=TRUE)
 @
 
-    Previous example uses a model predefined in \texttt{nlstools}. However, any model may be fitted by explicitly defining its formula. Beware that the names of variables in the model formula must exactly match those in the dataset.
-    
-<<>>=
+Previous example uses a model predefined in \texttt{nlstools}. However, any model may be fitted by explicitly defining its formula. Beware that the names of variables in the model formula must exactly match those in the dataset.
+
+<<keep.source=FALSE>>=
 model <- LOG10N ~ LOG10N0 - (t/delta)^p
 nlsmaf <- nls(model, survivalcurve2, list(p = 2, delta = 10, LOG10N0 = 7.5))
 @
 
-    For the plot of a model with more than one independent variable, it is necessary to specify the argument \texttt{variable} of the function \texttt{plotfit} to indicate which variable is plotted on the x-axis. In that case, it is not possible to use the argument \texttt{smooth} to plot a smooth line for the fitted model. In the following example, a model with 4 independent variables is fitted and the dependent variable is plotted first versus the first independent variable, and then versus the second one.
+For the plot of a model with more than one independent variable, it is necessary to specify the argument \texttt{variable} of the function \texttt{plotfit} to indicate which variable is plotted on the x-axis. In that case, it is not possible to use the argument \texttt{smooth} to plot a smooth line for the fitted model. In the following example, a model with 4 independent variables is fitted and the dependent variable is plotted first versus the first independent variable, and then versus the second one.
 
-<<fig=TRUE>>=
+<<fig=TRUE, keep.source=FALSE>>=
 data(ross)
 d6<-subset(ross, select = c(T, pH, aw, sqrtmumax))
 nls6 <- nls(cpm_T_pH_aw, d6, list(muopt = 2, Tmin = 4,
-Topt = 40, Tmax = 49,pHmin = 4, pHopt = 6.5, pHmax = 9,
-awmin = 0.95, awopt = 0.995))
+                                  Topt = 40, Tmax = 49,pHmin = 4, pHopt = 6.5, pHmax = 9,
+                                  awmin = 0.95, awopt = 0.995))
 plotfit(nls6, variable = 1)
 @
-<<fig=TRUE>>=
+<<fig=TRUE, keep.source=FALSE>>=
 plotfit(nls6, variable = 2)
 @
 
-    An extended summary of the fit (giving more information than \texttt{summary(nls)}) may be printed using the function \texttt{overview}, as below.
+An extended summary of the fit (giving more information than \texttt{summary(nls)}) may be printed using the function \texttt{overview}, as below.
 
-<<>>=
+<<keep.source=FALSE>>=
 overview(nlsmaf)
 @
 
 \section{Analysis of residuals}
 \subsection{Graphics of residuals}
 
+
     Several plots may help to check the validity of the assumptions of the error model based on the analysis of residuals. The plot of the result of the function \texttt{nlsResiduals} provides, by default, four classic plots of residuals (see following example): 
 non-transformed residuals against fitted values, standardized residuals against fitted values, auto-correlation plot of residuals (i+1th residual against ith residual), and qq-plot of the residuals. See \texttt{?nlsResiduals} to have more details or view other possibilities.  
 
-<<fig=TRUE>>=
+<<resmaf, fig=TRUE,keep.source=FALSE>>=
 resmaf<-nlsResiduals(nlsmaf)
 plot(resmaf)
 @
@@ -111,7 +116,7 @@ plot(resmaf)
 
     The normality of residuals may be tested by the Shapiro-Wilk test and their independence by the runs test using the function \texttt{test.nlsResiduals} as below.
 
-<<>>=
+<<keep.source=FALSE>>=
 test.nlsResiduals(resmaf)
 @
 
@@ -124,11 +129,11 @@ The function \texttt{nlsContourRSS} provides sections of that confidence region 
 
     The function \texttt{nlsContourRSS} enables to plot the Residual Sum of Squares (RSS) contours which also correspond to the likelihood contours for a Gaussian model. One of these contours, plotted in red, corresponds to the section of the 95 percent Beale's confidence region in each plane of two parameters. The argument \texttt{nlev} corresponds to the number of contours to be plotted, in addition to the red one.
 
-<<results=hide>>=
+<<results=hide, keep.source=FALSE>>=
 contmaf <- nlsContourRSS(nlsmaf)
 @
 
-<<fig=TRUE>>=
+<<fig=TRUE, keep.source=FALSE>>=
 plot(contmaf, col=FALSE, nlev=10)
 @
 
@@ -143,20 +148,20 @@ region in a reasonable time, as in the next example.
 
     In this example, the function \texttt{nlsConfRegions} is first called with the argument \texttt{exp} fixed at 1, which corresponds to a hypercube delimited by the limits of the asymptotic confidence intervals of each parameter. The obtained region is then plotted, fixing the argument \texttt{bounds} at \texttt{TRUE} in order to visualize the sampling hypercube.
     
-<<results=hide>>=
+<<results=hide, keep.source=FALSE>>=
 rcmaf <- nlsConfRegions(nlsmaf, length=500, exp=1)
 @
-<<fig=TRUE>>=
+<<fig=TRUE, keep.source=FALSE>>=
 plot(rcmaf, bounds=T)
 @
 
     Since the whole region does not seem to be included in the sampling hypercube, the function \texttt{nlsConfRegions} is recalled with the argument \texttt{exp} fixed at 2.
     
-<<results=hide>>=
+<<results=hide, keep.source=FALSE>>=
 rcmaf <- nlsConfRegions(nlsmaf, length=500, exp=2)
 @
 
-<<fig=TRUE>>=
+<<fig=TRUE, keep.source=FALSE>>=
 plot(rcmaf,bounds=T)
 @
 
@@ -166,7 +171,7 @@ plot(rcmaf,bounds=T)
 rcmaf <- nlsConfRegions(nlsmaf, length=2000, exp=2)
 @
 
-<<fig=TRUE>>=
+<<fig=TRUE, keep.source=FALSE>>=
 plot(rcmaf, bounds=F)
 @
 
@@ -174,7 +179,7 @@ plot(rcmaf, bounds=F)
 
     It must be noticed that the representation of the confidence region in sections using \texttt{nlsContourRSS} does not give the same information as its representation by projections using \texttt{nlsConfRegions} when the number of parameters is greater than two. Sections of multidimensional (at least 3D) objects are smaller than projections and the representation of a confidence region in sections tends to underestimate its size in comparison to its representation by projections. The perception of structural correlations between parameters from graphical representation of the confidence region may also be very different between both representations. Let us see below such a difference with the previous example, for which both the section and the projection of the confidence region was plotted on the same plane.
 
-<<fig=TRUE,results=hide,echo=FALSE>>=
+<<fig=TRUE,results=hide,echo=FALSE, keep.source=FALSE>>=
 plot(rcmaf$cr[,1], rcmaf$cr[,3], pch=16, xlab='p', ylab='LOG10N')
 contour(contmaf$seqPara[, 1], contmaf$seqPara[, 3], contmaf$lrss[[2]], 
                 labels = "", levels = contmaf$lrss95, lty = 1, col = "red",add=T,lwd=5)
@@ -187,34 +192,35 @@ contour(contmaf$seqPara[, 1], contmaf$seqPara[, 3], contmaf$lrss[[2]],
 
     The function \texttt{nlsJack} may be used to obtain, for a data set with $n$ observations, $n$ resampled data sets of $n-1$ observations and the $n$ corresponding new estimations for each parameter of the model. The jackknife estimates with confidence intervals are then calculated as described by Seber and Wild \cite{Seber}. 
 
-<<>>=
+<<keep.source=FALSE>>=
 jackmaf <- nlsJack(nlsmaf)
 @
-<<>>=
+<<keep.source=FALSE>>=
 summary(jackmaf)
 @
 
     The leave-one-out procedure may also be employed to assess the influence of each observation on each parameter estimate, as in the end of the previous summary or in the following representation.
 
-<<fig=TRUE>>=
+<<fig=TRUE, keep.source=FALSE>>=
 plot(jackmaf)
 @
+
 
 \subsection{Bootstrap}
 
     The function \texttt{nlsBoot} uses non-parametric bootstrapping of mean centered residuals \cite{Seber} to obtain a chosen number (argument \texttt{niter}) of bootstrap estimates. Ponctual estimations (resp. confidence intervals) of parameters are then provided using medians (resp. the 2.5 and 97.5 percentiles) of the bootstrap sample of estimates.
     
-<<results=hide>>=
+<<results=hide, keep.source=FALSE>>=
 boomaf <- nlsBoot(nlsmaf, niter=2000) 
 @
 
-<<>>=
+<<keep.source=FALSE>>=
 summary(boomaf)
 @
 
     The boostrap sample of estimates may be visualized by projection on each plane defined by a couple of parameters, as below. This representation is generally close to the representation of the 95 percent Beale's confidence region provided by \texttt{nlsConfRegions}.
     
-<<fig=TRUE>>=
+<<fig=TRUE, keep.source=FALSE>>=
 plot(boomaf, type="pairs")
 @
 
@@ -235,4 +241,5 @@ Huet~S., Bouvier~A., Poursat~M.A., Jolivet~E. (2003) Statistical tools for nonli
 regression: a practical guide with S-PLUS and R examples. Springer, Berlin, Heidelberg, New York.\\
 
 \end{thebibliography}
+
 \end{document}
