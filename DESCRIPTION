@@ -1,5 +1,5 @@
 Package: nlsMicrobio
-Version: 0.0-3
+Version: 1.0-0
 Title: Nonlinear Regression in Predictive Microbiology
 Authors@R: c(person("Florent", "Baty", role = "aut", email = "florent.baty@gmail.com"),
              person("Marie-Laure", "Delignette-Muller", role = "aut", email = "marielaure.delignettemuller@vetagro-sup.fr"),
@@ -7,16 +7,18 @@ Authors@R: c(person("Florent", "Baty", role = "aut", email = "florent.baty@gmail
 Depends: stats, nlstools
 Suggests: knitr
 Description: Data sets and nonlinear regression models dedicated to predictive microbiology.
+URL: https://github.com/lbbe-software/nlsMicrobio
+BugReports: https://github.com/lbbe-software/nlsMicrobio/issues
 License: GPL-3
 LazyLoad: yes
 LazyData: yes
 NeedsCompilation: no
 VignetteBuilder: knitr
 BuildVignettes: true
-Packaged: 2021-09-17 10:51:41 UTC; siberchicot
+Packaged: 2024-02-13 16:20:34 UTC; siberchicot
 Author: Florent Baty [aut],
   Marie-Laure Delignette-Muller [aut],
   Aurelie Siberchicot [aut, cre]
 Maintainer: Aurelie Siberchicot <aurelie.siberchicot@univ-lyon1.fr>
 Repository: CRAN
-Date/Publication: 2021-09-17 11:30:02 UTC
+Date/Publication: 2024-02-13 18:21:16 UTC

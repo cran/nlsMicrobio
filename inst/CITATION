@@ -1,9 +1,10 @@
 citHeader("To cite nlsMicrobio in publications use:")
 
 
-citEntry(entry="Manual",
+bibentry(bibtype="Manual",
          title = "nlsMicrobio: data sets and nonlinear regression models dedicated to predictive microbiology",
-         author = "Florent Baty and Marie-Laure Delignette-Muller",
+         author = c(person("Florent Baty"),
+                   person("Marie-Laure Delignette-Muller")),
          year = 2014,
          note = "R package version 0.0-1",
 
@@ -12,3 +13,7 @@ citEntry(entry="Manual",
          "(2013),",
             "nlsMicrobio: data sets and nonlinear regression models dedicated to predictive microbiology.")
 )
+
+citFooter("Please cite both the package and R when using them for data analysis.",
+	  "See also", sQuote("citation()"),
+	  "for citing R.")
